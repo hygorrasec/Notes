@@ -70,7 +70,7 @@ sudo pip3.x install --upgrade pip
 sudo pip3.x install virtualenv virtualenvwrapper
 ```
 
-### c) Configurar um diretório padrão para o virtualenv. Adicionar no final do arquivo .bashrc que está no diretório /home (Ctrl + H pra mostrar os arquivos e pastas ocultas):
+### b) Configurar um diretório padrão para o virtualenv. Adicionar no final do arquivo .bashrc que está no diretório /home (Ctrl + H pra mostrar os arquivos e pastas ocultas):
 
 ```
 # Virtualenv
@@ -82,26 +82,46 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3.10
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-### d) Abra um novo terminal e crie um novo ambiente virtual:
+### c) Abra um novo terminal e crie um novo ambiente virtual:
 
 ```
 mkvirtualenv NOME_DO_AMBIENTE_VIRTUAL
 ```
 
-### e) Se tudo deu certo, você estará conectado ao ambiente virtual que foi criado. Para sair, digite o comando abaixo:
+### d) Se tudo deu certo, você estará conectado ao ambiente virtual que foi criado. Para sair, digite o comando abaixo:
 
 ```
 deactivate
 ```
 
-### f) Para acessar novamente o ambiente virtual que você criou, digite o comando abaixo:
+### e) Para acessar novamente o ambiente virtual que você criou, digite o comando abaixo:
 
 ```
 workon NNOME_DO_AMBIENTE_VIRTUAL
 ```
 
-### g) Para remover um ambiente virtual, digite o comando abaixo:
+### f) Para remover um ambiente virtual, digite o comando abaixo:
 
 ```
 rmvirtualenv NOME_DO_AMBIENTE_VIRTUAL
 ```
+
+## CRIANDO TOKEN DE ACESSO PESSOAL NO GITHUB:
+
+### a) Na sua conta do GitHub, vá em Setting => Developer settings => Personal access tokens => Generate new token => Preencha o formulário => clique em Generate token => Copie o Token gerado. O TOKEN será algo como:
+```ghp_sFhFsSHhTzMDreGRLjmks4Tzuzgthdvfsrta```
+
+### b) No terminal digite (altere com seus dados):
+
+```
+git remote set-url origin https://TOKEN@github.com/YOUR-USERNAME/REPOSITORY
+```
+
+### c) Para Linux, você precisa configurar o cliente Git local com um nome de usuário e endereço de e-mail:
+
+```
+git config --global user.name "your_github_username"
+git config --global user.email "your_github_email"
+```
+
+### d) Depois que o Git estiver configurado, podemos começar a usá-lo para acessar o GitHub.
