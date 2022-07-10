@@ -244,6 +244,35 @@ git config --global user.email "your_github_email"
 
 ### d) Depois que o Git estiver configurado, podemos começar a usá-lo para acessar o GitHub.
 
+## CRIANDO CHAVE SSH GITHUB:
+
+### a) Na pasta do projeto, configurar:
+
+```
+git config --global user.name "your_github_username"
+git config --global user.email "your_github_email"
+git config --global init.defaultBranch main
+git init
+```
+
+### b) Criando chave SSH do usuário:
+
+```
+ssh-keygen
+```
+
+### c) Pegar a chave:
+
+Linux: ```cat /Users/USER_NAME/.ssh/id_rsa.pub```
+
+### d) Copiar a chave e adicionar no Github:
+
+```
+Entrar em Settings > SSH and GPG Keys > New SSH key > Colar a chave e salvar
+```
+
+### e) Criar um novo repositório no Github utilizando SSH.
+
 ## CASOS OPICIONAIS:
 >USANDO O ZSH PARA MODIFICAR O TERMINAL
 
