@@ -72,3 +72,8 @@ Python
 Material Icon Theme
 Color Highlight
 ```
+
+### 3) Tirando a compactação de pasta no VSCode:
+```
+Setting > procurar por compact e desmarcar a opção (Explorer: Compact Folders).
+```
