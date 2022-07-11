@@ -12,10 +12,19 @@ Linux:
 ou:
 ```source venv/bin/activate```
 
-Windows:
-```\venv\Scripts\activate```
+Windows (PowerShell):
+```.\venv\Scripts\Activate.ps1```
 
-### 3) Desativando Ambiente Virtual (venv):
+Windows (CMD):
+```.\venv\Scripts\activate.bat```
+
+### 3) (WINDOWS) Se apresentar algum erro de permissão, siga o passo abaixo:
+
+    - Abrir o PowerShell como Administrador;
+    - Digitar o comando: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+    - Fechar o terminal e abrir novamente. Provalmente vai funcionar.
+
+### 4) Desativando Ambiente Virtual (venv):
 ```
 deactivate
 ```
