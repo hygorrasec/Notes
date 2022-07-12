@@ -5,28 +5,34 @@
 ```
 mkdir project01
 cd project01
+python3.x -m pip install pip setuptools wheel --upgrade
 ```
 
-### 2) Abrindo o projeto no VSCode:
-
-```
-code .
-```
-
-### 3) Criar Ambiente Virtual (alterar o x para a versão do seu Python):
+### 2) Criar Ambiente Virtual (alterar o x para a versão do seu Python):
 ```
 python3.x -m venv venv
 ```
 
-### 4) Ativando o Ambiente Virtual (venv):
+### 3) Ativando o Ambiente Virtual (venv):
 
 Linux:
 ```. venv/bin/activate```
 ou:
 ```source venv/bin/activate```
 
-Windows:
-```\venv\Scripts\activate```
+Windows (PowerShell):
+```.\venv\Scripts\Activate.ps1```
+
+Windows (CMD):
+```.\venv\Scripts\activate.bat```
+
+### 4) Instalando dependências e criando projeto (alterar o x para a versão do seu Python):
+```
+pip install pip setuptools wheel django --upgrade
+pip install -U flake8 mypy
+django-admin startproject NOME_DO_PROJETO .
+python manage.py runserver
+```
 
 ### 5) Anotações:
 
