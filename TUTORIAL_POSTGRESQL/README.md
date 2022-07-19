@@ -1,57 +1,108 @@
 ## Instalando PostgreSQL Linux:
 
-### 1) Comandos de instação:
+### 1 - Instalando dependências necessários:
 ```
-sudo apt update
-sudo apt install postgresql postgresql-contrib
-```
-
-### 2) Criar um novo usuário:
-```
-sudo -u postgres createuser --interactive
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib unixodbc unixodbc-dev odbc-postgresql -y
+sudo apt-get upgrade -y
 ```
 
-### 3) Acessando pelo terminal. O primeiro faz com que você utilize o usuário postgres e depois o segundo executa o shell:
+### 2 - Criando diretório para armazenamento de dados:
 ```
-sudo -i -u postgres
-psql
+sudo mkdir -p /postgres/pgdata/database/data /postgres/pgdata/database/index
+```
+
+### 3 - Dando permissão Postgres para os diretórios criado:
+```
+sudo chown -R postgres /postgres
+```
+
+### 4 - Criando uma senha para o usuário postgres:
+```
+sudo passwd postgres
+```
+
+### 5 - Acessar diretório com permissão de acesso:
+```
+cd /postgres
+```
+
+### 6 - Alterar usuário da sessão:
+```
+su postgres
+```
+
+### 7 - Alterar a senha do usuário do banco do postgres (criação de usuário = template1):
+```
+psql -c "alter user postgres with password 'hygor123'" -d template1
+```
+
+### 8 - Criar login de usuário responsável pelo banco de dados:
+```
+psql -c "create user hygor with login nosuperuser inherit createdb nocreaterole noreplication connection limit -1 password 'hygor123'"
+```
+
+### 9 - Criando tablespace de dados do banco de dados da produção:
+```
+psql -c "create tablespace database_data owner hygor location '/postgres/pgdata/database/data'"
+```
+
+### 10 - Criando tablespace de índices do banco de dados da produção:
+```
+psql -c "create tablespace database_index owner hygor location '/postgres/pgdata/database/index'"
+```
+
+### 11 - Criando banco de dados da produção (criação de banco de dados = template0):
+```
+psql -c "create database database with owner hygor template = template0 encoding = 'WIN1252' lc_collate = 'C' lc_ctype = 'C' tablespace = database_data connection limit - 1"
+```
+
+### 12 - Para sair do usuário postgres:
+```
+exit
+```
+
+### 13 - Checar arquivo de instalação de gerenciador obdc:
+```
+sudo gedit /etc/odbcinst.ini
+```
+
+### 14 - Criar coneção odbc:
+```
+sudo gedit /etc/odbc.ini
+
+[database]
+Description=PostgreSQL Conection
+Driver=PostgreSQL ANSI
+Trace=Yes
+TraceFile=/tmp/psqlodbc_database.log
+Servername=127.0.0.1
+Database=database
+UserName=hygor
+Password=hygor123
+Port=5432
+ReadOnly=No
+RowVersioning=No
+ShowSystemTables=No
+ShowOidColumn=No
+FakeOidIndex=No
+ConnSettings=
+```
+
+### 15 - Testando conexão odbc:
+```
+isql -v database
+```
+
+### 16 - Instalando DBeaver:
+```
+wget https://dbeaver.io/files/22.1.2/dbeaver-ce_22.1.2_amd64.deb -O dbeaver-ce.deb && sudo dpkg -i dbeaver-ce.deb
+```
+
+### 17 - Outros comandos dentro do psql:
 ```
 > \conninfo = Verificar os detalhes de sua conexão
 > \l = Ver uma lista de todos os bancos de dados disponíveis
 > \du = Ver uma lista de todos os usuários com seus privilégios
 > \password postgres = Definindo senha
-
-### 4) Criar uma base de dados:
-```
-sudo -u postgres createdb blog
-```
-
-### 5) Visualização com PgAdmin:
-```
-sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-
-sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-
-sudo apt install pgadmin4
-
-sudo /usr/pgadmin4/bin/setup-web.sh
-```
-
-### 6) Para rodar Postgres com o Django vamos precisar de um driver chamado psycopg2
-```
-pip install psycopg2
-```
-
-### 7) Alterando banco no Django. Arquivo settings.py em myproject/myproject/:
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'nome_do_banco'),
-        'USER': os.environ.get('DB_USER', 'nome_do_user'),
-        'PASSWORD': os.environ.get('DB_PASS', 'senha_do_user'),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 ```
