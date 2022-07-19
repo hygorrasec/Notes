@@ -3,7 +3,7 @@
 ### 1 - Instalando dependências necessários:
 ```
 sudo apt-get update
-sudo apt-get install postgresql postgresql-contrib unixodbc unixodbc-dev odbc-postgresql -y
+sudo apt-get install postgresql postgresql-contrib unixodbc unixodbc-dev odbc-postgresql libpq-dev python3-dev psycopg2-binary psycopg2 -y
 sudo apt-get upgrade -y
 ```
 
